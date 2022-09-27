@@ -3,12 +3,20 @@
 body{
     font-family: 'Poppins', sans-serif;
 }
+
+h5 {
+    font-weight: 700;
+    font-size: 18px;
+}
+.carousel-indicators{
+    margin-bottom: 0px !important;
+}
 .menu-icon{
     background-color: #e7f1fd;
     color: #2155CD;
     width: 70px;
     height: 70px; 
-    border-radius: 50%; 
+    border-radius: 30%; 
     padding-top: 15px; 
     margin: auto;
     margin-bottom: 10px;
@@ -69,9 +77,10 @@ z-index:100;
 }
 
 .promo-tag{
-    background-color: #FFB200;
+    background-color: #e7f1fd;
     text-decoration: none;
-    color: #fff;
+    color: #2155CD;
+    font-weight: 700;
     padding: 5px 15px;
     border-radius: 15px;
 }
@@ -84,4 +93,54 @@ z-index:100;
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 20px;
+    background-position: center center;
+}
+
+
+.event{
+    height: 170px; 
+    width: 100%; 
+    background-color: #2155CD;
+    border-radius: 25px;
+}
+
+.event .event-date{
+    background-color: rgba(255, 255, 255, 0.781);
+    height: 100%;
+    font-size: 50px;
+    font-weight: 800;
+    color: #2155CD;
+    text-align: center;
+    border-radius: 25px;
+    padding-top: 10px;
+}
+
+.event .event-date p{
+    margin-top: -10px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.event .event-title{
+    color: #fff;
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 30px;
+}
+
+.event .event-title .btn{
+    border-radius: 40px;
+    padding: 5px 15px;
+    font-weight: 600;
+    margin-top: 18px;
+    font-size: 12px;
+}
+
+.spa{
+    background-color: #2155CD;
+    height: 110px;
+
+    border-radius: 25px;
+    background-size: cover;
+    background-position: center;
 }
