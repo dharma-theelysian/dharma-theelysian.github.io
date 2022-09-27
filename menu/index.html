@@ -7,6 +7,7 @@
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     <link rel="stylesheet" href="../assets/css/styles.css">
 
     <title>The Elysian What's On - September</title>
@@ -17,7 +18,7 @@
         <div class="row">
             <div class="col-12" style="background-image: url(https://images.pexels.com/photos/1640772/pexels-photo-1640772.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1); background-position: center; background-size: cover; height: 400px;">
                 <div class="rounded-circle text-center pt-2 mt-3" style="background-color: rgba(255, 255, 255, 0.767); width: 48px; height: 48px;">
-                    <a href="/index.html"><ion-icon name="arrow-back" style="font-size: 30px;"></ion-icon></a>
+                    <a href="/index.html"><ion-icon name="arrow-back" style="font-size: 30px; color: #000;"></ion-icon></a>
                 </div>
             </div>
         </div>
@@ -25,11 +26,11 @@
             <div class="col-12 pt-5 px-4 detail-menu">
                 <div>
                     <h3>Lorem ipsum dolor sit amet.</h3>
-                    <p style="font-weight: 600;">IDR 350.000++</p>
-                    <h5>Description</h5>
+                    <p style="font-weight: 600;" id="harga">IDR 350.000++</p>
+                    <h5 class="mt-4">Description</h5>
                     <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque nesciunt, voluptatum necessitatibus ad alias natus quibusdam cupiditate ipsa beatae dolorem, sunt nemo pariatur qui magni harum laudantium veniam minima quas.</p>
                 </div>
-                <div class="row pt-5">
+                <div class="row pt-4">
                     <h5>Direct Order</h5>
                     <div class="mb-3 mt-3">
                         <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="Your villa number">
@@ -40,14 +41,105 @@
                     <div class="mb-3">
                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="note"></textarea>
                     </div>
-                    <div class="md-12">
-                        <button class="btn btn-success w-100 rounded-pill">Send Oder</button>
+                    <div class="col-6 mt-2" style="font-weight: 700; font-size: 17px;">
+                        IDR <input type="text" style="width: 90px; border: hidden;" value="300.000++" disabled>
+                    </div>
+                    <div class="col-6 mt-2">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <a type="button" class="btn-number px-2"  data-type="minus" data-field="quant[2]">
+                                    <ion-icon name="remove-circle" style="font-size: 30px;"></ion-icon>
+                                </a>
+                            </span>
+                            <input type="text" name="quant[2]" class="form-control input-number text-center mt-2" value="1" min="1" max="20" style="border: hidden; font-weight: 600; height: 20px;">
+                            <span class="input-group-btn">
+                                <a type="button" class="btn-number px-2" data-type="plus" data-field="quant[2]">
+                                    <ion-icon name="add-circle" style="font-size: 30px;"></ion-icon>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="md-3 mt-4">
+                        <button class="btn btn-primary btn-lg w-100 rounded-pill">Send Oder</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     
+    <script>
+        $('.btn-number').click(function(e){
+    e.preventDefault();
+    
+    fieldName = $(this).attr('data-field');
+    type      = $(this).attr('data-type');
+    var input = $("input[name='"+fieldName+"']");
+    var currentVal = parseInt(input.val());
+    if (!isNaN(currentVal)) {
+        if(type == 'minus') {
+            
+            if(currentVal > input.attr('min')) {
+                input.val(currentVal - 1).change();
+            } 
+            if(parseInt(input.val()) == input.attr('min')) {
+                $(this).attr('disabled', true);
+            }
+
+        } else if(type == 'plus') {
+
+            if(currentVal < input.attr('max')) {
+                input.val(currentVal + 1).change();
+            }
+            if(parseInt(input.val()) == input.attr('max')) {
+                $(this).attr('disabled', true);
+            }
+
+        }
+    } else {
+        input.val(0);
+    }
+});
+$('.input-number').focusin(function(){
+   $(this).data('oldValue', $(this).val());
+});
+$('.input-number').change(function() {
+    
+    minValue =  parseInt($(this).attr('min'));
+    maxValue =  parseInt($(this).attr('max'));
+    valueCurrent = parseInt($(this).val());
+    
+    name = $(this).attr('name');
+    if(valueCurrent >= minValue) {
+        $(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
+    } else {
+        alert('Sorry, the minimum value was reached');
+        $(this).val($(this).data('oldValue'));
+    }
+    if(valueCurrent <= maxValue) {
+        $(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
+    } else {
+        alert('Sorry, the maximum value was reached');
+        $(this).val($(this).data('oldValue'));
+    }
+    
+    
+});
+$(".input-number").keydown(function (e) {
+        // Allow: backspace, delete, tab, escape, enter and .
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+             // Allow: Ctrl+A
+            (e.keyCode == 65 && e.ctrlKey === true) || 
+             // Allow: home, end, left, right
+            (e.keyCode >= 35 && e.keyCode <= 39)) {
+                 // let it happen, don't do anything
+                 return;
+        }
+        // Ensure that it is a number and stop the keypress
+        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+        }
+    });
+    </script>
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
