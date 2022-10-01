@@ -179,5 +179,7 @@ z-index:100;
 }
 
 .offcanvas-detail{
-    height: 50%;
+    height: 40%;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
 }
