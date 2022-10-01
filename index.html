@@ -13,7 +13,7 @@
   </head>
   <body>
     
-    <div class="container mt-4">
+    <div class="container mt-4 page">
       <div class="position-relative">
         <div class="position-absolute top-0 start-0"><strong>Special Offers</strong></div>
         <div class="position-absolute top-0 end-0"><a href="#">See all</a></div>
@@ -148,7 +148,8 @@
           <h5>Upcoming Event</h5>
           <div class="event mt-3" style="background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.438),  rgba(0, 0, 0, 0.185)), url(https://images.pexels.com/photos/929137/pexels-photo-929137.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1); background-size: cover; background-position: center top;">
             <div class="row p-4">
-              <div class="col-5">
+              <h1 class="text-white text-center pt-4">No Event <br>Upcoming</h1>
+              <!-- <div class="col-5">
                 <div class="event-date">
                   30
                   <p>Friday</p>
@@ -159,7 +160,7 @@
                   Barbeque Event<br>
                   <a href="event/index.html" class="btn btn-warning btn-sm">View Detail</a>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -252,6 +253,29 @@
         <h5 class="text-center pt-5">404 - Coming Soon!</h5>
     </div>
     </div>
+
+    <!-- LOADING SCREEN -->
+    <div id="loading"></div>
+
+    <script>
+      function onReady(callback) {
+          var intervalId = window.setInterval(function() {
+            if (document.getElementsByTagName('body')[0] !== undefined) {
+              window.clearInterval(intervalId);
+              callback.call(this);
+            }
+          }, 1000);
+        }
+
+        function setVisible(selector, visible) {
+          document.querySelector(selector).style.display = visible ? 'block' : 'none';
+        }
+
+        onReady(function() {
+          setVisible('.page', true);
+          setVisible('#loading', false);
+      });
+    </script>
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
